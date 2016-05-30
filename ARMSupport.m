@@ -19,6 +19,34 @@
 
 
 
+$ARMSupportVersion::usage="$ARMSupportVersion prints the current version of the ARMSupport package in use and its timestamp.";
+$ARMSupportTimestamp::usage="$ARMSupportTimestamp prints the timestamp of the current version of the ARMSupport package.";
+Begin["`Private`"];
+$ARMSupportVersion:="ARMSupport v1.0.12, "<>$ARMSupportTimestamp;
+End[];
+
+
+Begin["`Private`"];
+$ARMSupportTimestamp="Mon 30 May 2016 21:36:01";
+End[];
+
+
+$ARMSupportDirectory::usage="$ARMSupportDirectory is the directory where the current RB-SFA package instance is located.";
+$ARMSupportCommit::usage="$ARMSupportCommit returns the git commit log at the location of the RB-SFA package if there is one.";
+$ARMSupportCommit::OS="$ARMSupportCommit has only been tested on Linux.";
+
+
+Begin["`Private`"];
+With[{softLinkTestString=StringSplit[StringJoin[ReadList["! ls -la "<>StringReplace[$InputFileName,{" "->"\\ "}],String]]," -> "]},
+If[Length[softLinkTestString]>1,(*Testing in case $InputFileName is a soft link to the actual directory.*)
+$ARMSupportDirectory=StringReplace[DirectoryName[softLinkTestString[[2]]],{" "->"\\ "}],
+$ARMSupportDirectory=StringReplace[DirectoryName[$InputFileName],{" "->"\\ "}];
+]]
+$ARMSupportCommit:=(If[$OperatingSystem!="Unix",Message[$ARMSupportCommit::OS]];
+StringJoin[Riffle[ReadList["!cd "<>$ARMSupportDirectory<>" && git log -1",String],{"\n"}]]);
+End[];
+
+
 BeginPackage["ARMSupport`",{"EPToolbox`"}];
 
 
