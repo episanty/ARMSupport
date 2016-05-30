@@ -22,12 +22,12 @@
 $ARMSupportVersion::usage="$ARMSupportVersion prints the current version of the ARMSupport package in use and its timestamp.";
 $ARMSupportTimestamp::usage="$ARMSupportTimestamp prints the timestamp of the current version of the ARMSupport package.";
 Begin["`Private`"];
-$ARMSupportVersion:="ARMSupport v1.0.12, "<>$ARMSupportTimestamp;
+$ARMSupportVersion:="ARMSupport v1.0.13, "<>$ARMSupportTimestamp;
 End[];
 
 
 Begin["`Private`"];
-$ARMSupportTimestamp="Mon 30 May 2016 21:36:01";
+$ARMSupportTimestamp="Mon 30 May 2016 22:20:13";
 End[];
 
 
@@ -423,6 +423,72 @@ End[]
 Begin["`Private`"]
 ReportToFile[directory_,file_]:=Function[expr,Run["cd "<>directory<>" && echo "<>StringReplace[ToString[expr/.{s_String:>StringJoin["\"",s,"\""]},CharacterEncoding->"ASCII"],{" "->"\\ ","\\"->"\\\\","\""->"\\\""}]<>" >> "<>StringReplace[file,{" "->"\\ ","\\"->"\\\\","\""->"\\\""}]]]
 End[]
+
+
+Unprotect[Power];
+Power[0,0]=1;
+Power[0.+0.I,0]=1;
+Power[0.,0]=1;
+Protect[Power];
+
+
+vel::usage="vel[\[Theta],\!\(\*SubscriptBox[\(p\), \(o\)]\),\!\(\*SubscriptBox[\(p\), \(y\)]\),\[Kappa]] calculates the velocity vector p+A(\!\(\*SubscriptBox[\(t\), \(s\)]\)) at the saddle point time \!\(\*SubscriptBox[\(t\), \(s\)]\), for the transverse momentum (\!\(\*SubscriptBox[\(p\), \(o\)]\),\!\(\*SubscriptBox[\(p\), \(y\)]\)), the target \!\(\*SubscriptBox[\(I\), \(p\)]\)=\!\(\*SuperscriptBox[\(\[Kappa]\), \(2\)]\)/2, and an angle \[Theta] between the molecular axis and the laser polarization.";
+qvec::usage="qvec[a,\[Theta],\!\(\*SubscriptBox[\(p\), \(o\)]\),\!\(\*SubscriptBox[\(p\), \(y\)]\),\[Kappa]] returns the normalized velocity q=a(p+A(\!\(\*SubscriptBox[\(t\), \(s\)]\))), with the inner part as for the function vel, for a the ARM boundary radius.";
+Begin["`Private`"];
+vel[\[Theta]_,po_,py_,\[Kappa]_]:=(po{Cos[\[Theta]],0,-Sin[\[Theta]]}+py {0,1,0}-I Sqrt[\[Kappa]^2+po^2+py^2]{Sin[\[Theta]],0,Cos[\[Theta]]});
+qvec[a_,\[Theta]_,po_,py_,\[Kappa]_]:=a vel[\[Theta],po,py,\[Kappa]];
+End[];
+
+
+SFTnumeric::usage="SFTnumeric[]";
+SFTnumericParallelized::usage="SFTnumericParallelized";
+Begin["`Private`"];
+SFTnumeric[qx_,qy_,qz_,b_,c_,nx_,ny_,nz_]:=With[{result=SFTnumericParallelized[qx,qy,qz,b,c,nx,ny,nz]},(SFTnumeric[qx,qy,qz,b,c,nx,ny,nz]=result)/;result=!=Null];
+SFTnumeric[qx_,qy_,qz_,b_,c_,nx_,ny_,nz_]:=SFTnumericParallelized[qx,qy,qz,b,c,nx,ny,nz]=SFTnumeric[qx,qy,qz,b,c,nx,ny,nz]=NIntegrate[
+1/(2\[Pi]) E^(-I(qx Sin[\[Theta]]Cos[\[Phi]]+qy Sin[\[Theta]]Sin[\[Phi]]+qz Cos[\[Theta]])) Cosh[b Cos[\[Theta]]](1+c Cos[\[Theta]]^2)Cos[\[Theta]]^nz Sin[\[Theta]]^(nx+ny+1) Cos[\[Phi]]^nx Sin[\[Phi]]^ny
+,{\[Theta],0,\[Pi]},{\[Phi],0,2\[Pi]}
+,Method->"MultidimensionalRule"
+]
+SetSharedFunction[SFTnumericParallelized];
+SFTnumeric[{qx_,qy_,qz_},b_,c_,nx_,ny_,nz_]:=SFTnumeric[qx,qy,qz,b,c,nx,ny,nz]
+End[];
+
+
+SFTanalytic::usage="SFTanalytic[] ";
+Begin["`Private`"];
+SFTanalytic[qx_,qy_,qz_,b_,c_,nx_,ny_,nz_]:=With[{ss=Function[s,Sqrt[qx^2+qy^2+(qz+s I b)^2]],j=SphericalBesselJ,n=nx+ny+nz},
+Sum[(-I)^(nx+ny+nz) qx^nx qy^ny (qz+s I b)^nz ((1+c (nz+1/2)/(n+3/2)) j[n,ss[s]]/ss[s]^n-c((qz+s I b)^2/(qx^2+qy^2+(qz+s I b)^2)-(nz+1/2)/(n+3/2)) j[n+2,ss[s]]/ss[s]^n),{s,{1,-1}}]
+]
+SFTanalytic[{qx_,qy_,qz_},b_,c_,nx_,ny_,nz_]:=SFTanalytic[qx,qy,qz,b,c,nx,ny,nz]
+End[];
+
+
+AsymptoticBesselI::usage="AsymptoticBesselI";
+Begin["`Private`"];
+AsymptoticBesselI[n_,\[Sigma]_,order_:1]:=Block[{n1,\[Sigma]1},
+AsymptoticBesselI[n1_,\[Sigma]1_,order]=Normal[Delete[Series[BesselI[n1,\[Sigma]1],{\[Sigma]1,\[Infinity],order}],{2,2}]];
+AsymptoticBesselI[n,\[Sigma],order]
+]
+End[];
+
+
+SFTasymptotic::usage="SFTasymptotic[]";
+Begin["`Private`"];
+ClearAll[SFTasymptotic];
+SFTasymptotic[poo_,pyy_,\[Theta]\[Theta]_,bb_,cc_,\[Kappa]\[Kappa]_,aa_,nx_,ny_,nz_,order_]:=Block[{po,py,\[Theta],b,c,\[Kappa],a},
+SFTasymptotic[po_,py_,\[Theta]_,b_,c_,\[Kappa]_,a_,nx,ny,nz,order]=Block[
+{n=nx+ny+nz,qx,qy,qz,\[Sigma],s,\[Kappa]a},
+\[Sigma]=\[Kappa]a Sqrt[1+b^2/\[Kappa]a^2-2s b/\[Kappa]a Sqrt[1+po^2/\[Kappa]^2+py^2/\[Kappa]^2] Cos[\[Theta]]+2s I b/\[Kappa]a po/\[Kappa] Sin[\[Theta]]];
+{qx,qy,qz}={\[Kappa]a (po Cos[\[Theta]]-I Sqrt[po^2+py^2+\[Kappa]^2] Sin[\[Theta]])/\[Kappa],\[Kappa]a py/\[Kappa],\[Kappa]a (-I Sqrt[po^2+py^2+\[Kappa]^2] Cos[\[Theta]]-po Sin[\[Theta]])/\[Kappa]};
+E^(\[Kappa] a) ExpToTrig[Sum[
+Normal[Series[
+(-I)^n E^-\[Kappa]a qx^nx qy^ny (qz+s I b)^nz Sqrt[\[Pi]/2]((1+c (nz+1/2)/(n+3/2)) AsymptoticBesselI[n+1/2,\[Sigma],order+1]/\[Sigma]^(n+1/2)-c((qz+s I b)^2+(nz+1/2)/(n+3/2) \[Sigma]^2) AsymptoticBesselI[n+5/2,\[Sigma],order+1]/\[Sigma]^(n+5/2))
+,{\[Kappa]a,\[Infinity],order+1}]]/.{\[Kappa]a->\[Kappa] a}
+,{s,{1,-1}}]]
+];
+SFTasymptotic[poo,pyy,\[Theta]\[Theta],bb,cc,\[Kappa]\[Kappa],aa,nx,ny,nz,order]
+]
+End[];
 
 
 EndPackage[]
