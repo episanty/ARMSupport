@@ -27,7 +27,7 @@ End[];
 
 
 Begin["`Private`"];
-$ARMSupportTimestamp="Mon 30 May 2016 22:20:13";
+$ARMSupportTimestamp="Thu 2 Jun 2016 18:19:11";
 End[];
 
 
@@ -440,21 +440,30 @@ qvec[a_,\[Theta]_,po_,py_,\[Kappa]_]:=a vel[\[Theta],po,py,\[Kappa]];
 End[];
 
 
-SFTnumeric::usage="SFTnumeric[]";
-SFTnumericParallelized::usage="SFTnumericParallelized";
+SFTnumeric::usage="SFTnumeric[\!\(\*SubscriptBox[\(q\), \(x\)]\),\!\(\*SubscriptBox[\(q\), \(y\)]\),\!\(\*SubscriptBox[\(q\), \(z\)]\),b,c,\!\(\*SubscriptBox[\(n\), \(x\)]\),\!\(\*SubscriptBox[\(n\), \(y\)]\),\!\(\*SubscriptBox[\(n\), \(z\)]\)] calculates SFT(q) as defined in the thesis using explicit numerical integration over the spherical boundary.
+
+SFTnumeric[{\!\(\*SubscriptBox[\(q\), \(x\)]\),\!\(\*SubscriptBox[\(q\), \(y\)]\),\!\(\*SubscriptBox[\(q\), \(z\)]\)},b,c,\!\(\*SubscriptBox[\(n\), \(x\)]\),\!\(\*SubscriptBox[\(n\), \(y\)]\),\!\(\*SubscriptBox[\(n\), \(z\)]\)] does the same.";
+
 Begin["`Private`"];
-SFTnumeric[qx_,qy_,qz_,b_,c_,nx_,ny_,nz_]:=With[{result=SFTnumericParallelized[qx,qy,qz,b,c,nx,ny,nz]},(SFTnumeric[qx,qy,qz,b,c,nx,ny,nz]=result)/;result=!=Null];
-SFTnumeric[qx_,qy_,qz_,b_,c_,nx_,ny_,nz_]:=SFTnumericParallelized[qx,qy,qz,b,c,nx,ny,nz]=SFTnumeric[qx,qy,qz,b,c,nx,ny,nz]=NIntegrate[
+(*Funky syntax for parallelized memoization, as per mm.se/q/1259.*)
+SFTnumeric[qx_?NumericQ,qy_?NumericQ,qz_?NumericQ,b_,c_,nx_,ny_,nz_]:=With[
+{result=SFTnumericParallelized[qx,qy,qz,b,c,nx,ny,nz]},
+If[(result===Null&&$KernelID>0)||(Head[result]===SFTnumericParallelized&&$KernelID==0),
+SFTnumericParallelized[qx,qy,qz,b,c,nx,ny,nz]=NIntegrate[
 1/(2\[Pi]) E^(-I(qx Sin[\[Theta]]Cos[\[Phi]]+qy Sin[\[Theta]]Sin[\[Phi]]+qz Cos[\[Theta]])) Cosh[b Cos[\[Theta]]](1+c Cos[\[Theta]]^2)Cos[\[Theta]]^nz Sin[\[Theta]]^(nx+ny+1) Cos[\[Phi]]^nx Sin[\[Phi]]^ny
 ,{\[Theta],0,\[Pi]},{\[Phi],0,2\[Pi]}
 ,Method->"MultidimensionalRule"
 ]
+,result
+]
+]
 SetSharedFunction[SFTnumericParallelized];
-SFTnumeric[{qx_,qy_,qz_},b_,c_,nx_,ny_,nz_]:=SFTnumeric[qx,qy,qz,b,c,nx,ny,nz]
 End[];
 
 
-SFTanalytic::usage="SFTanalytic[] ";
+SFTanalytic::usage="SFTanalytic[\!\(\*SubscriptBox[\(q\), \(x\)]\),\!\(\*SubscriptBox[\(q\), \(y\)]\),\!\(\*SubscriptBox[\(q\), \(z\)]\),b,c,\!\(\*SubscriptBox[\(n\), \(x\)]\),\!\(\*SubscriptBox[\(n\), \(y\)]\),\!\(\*SubscriptBox[\(n\), \(z\)]\)] calculates SFT(q) using the explicit analytical functions in terms of spherical Bessel functions.
+
+SFTnumeric[{\!\(\*SubscriptBox[\(q\), \(x\)]\),\!\(\*SubscriptBox[\(q\), \(y\)]\),\!\(\*SubscriptBox[\(q\), \(z\)]\)},b,c,\!\(\*SubscriptBox[\(n\), \(x\)]\),\!\(\*SubscriptBox[\(n\), \(y\)]\),\!\(\*SubscriptBox[\(n\), \(z\)]\)] does the same.";
 Begin["`Private`"];
 SFTanalytic[qx_,qy_,qz_,b_,c_,nx_,ny_,nz_]:=With[{ss=Function[s,Sqrt[qx^2+qy^2+(qz+s I b)^2]],j=SphericalBesselJ,n=nx+ny+nz},
 Sum[(-I)^(nx+ny+nz) qx^nx qy^ny (qz+s I b)^nz ((1+c (nz+1/2)/(n+3/2)) j[n,ss[s]]/ss[s]^n-c((qz+s I b)^2/(qx^2+qy^2+(qz+s I b)^2)-(nz+1/2)/(n+3/2)) j[n+2,ss[s]]/ss[s]^n),{s,{1,-1}}]
@@ -491,4 +500,7 @@ SFTasymptotic[poo,pyy,\[Theta]\[Theta],bb,cc,\[Kappa]\[Kappa],aa,nx,ny,nz,order]
 End[];
 
 
-EndPackage[]
+EndPackage[];
+
+
+DistributeDefinitions["ARMSupport`"];
