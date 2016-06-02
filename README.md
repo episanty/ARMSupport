@@ -1,5 +1,7 @@
 ARMSupport
 ==========
+A support suite for Analytical $R$-Matrix calculations.
+
 © Emilio Pisanty 2014-2016
 
 This package provides functions for an implementation of the Analytical *R*-Matrix theory of photoionization (ARM), including detailed handling of integration contour paths for correct navigation of branch cut landscapes where relevant.
@@ -32,4 +34,6 @@ This package consists of the Mathematica notebook `ARMSupport.nb`, and the auto-
 
 [SlalomFigureMaker]: http://dx.doi.org/10.5281/zenodo.46912
 
-This package is dual-licenced under the GPL v3 and the CC BY-SA 4.0 licenses; for the full text see the file `License.txt`.
+This package is dual-licenced under the GPL v3 and the CC BY-SA 4.0 licenses; for the full text see the file `License.txt`. If you use this software package in work that results in an academic publication, you are academically (though not legally) obliged to cite it. An example citation is
+
+> - E. Pisanty. ARMSupport: A support suite for Analytical $R$-Matrix calculations. https://github.com/episanty/ARMSupport (2016).
