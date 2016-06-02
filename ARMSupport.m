@@ -22,12 +22,12 @@
 $ARMSupportVersion::usage="$ARMSupportVersion prints the current version of the ARMSupport package in use and its timestamp.";
 $ARMSupportTimestamp::usage="$ARMSupportTimestamp prints the timestamp of the current version of the ARMSupport package.";
 Begin["`Private`"];
-$ARMSupportVersion:="ARMSupport v1.0.13, "<>$ARMSupportTimestamp;
+$ARMSupportVersion:="ARMSupport v1.0.14, "<>$ARMSupportTimestamp;
 End[];
 
 
 Begin["`Private`"];
-$ARMSupportTimestamp="Thu 2 Jun 2016 18:19:11";
+$ARMSupportTimestamp="Thu 2 Jun 2016 20:08:57";
 End[];
 
 
@@ -472,7 +472,9 @@ SFTanalytic[{qx_,qy_,qz_},b_,c_,nx_,ny_,nz_]:=SFTanalytic[qx,qy,qz,b,c,nx,ny,nz]
 End[];
 
 
-AsymptoticBesselI::usage="AsymptoticBesselI";
+AsymptoticBesselI::usage="AsymptoticBesselI[n,z] gives the modified Bessel function of the first kind \!\(\*SubscriptBox[\(I\), \(n\)]\)(z) in the asymptotic regime of z\[RightArrow]\[Infinity], Re(z)>0.
+
+AsymptoticBesselI[n,z,m] gives the asymptotic expansion of \!\(\*SubscriptBox[\(I\), \(n\)]\)(z) to order m.";
 Begin["`Private`"];
 AsymptoticBesselI[n_,\[Sigma]_,order_:1]:=Block[{n1,\[Sigma]1},
 AsymptoticBesselI[n1_,\[Sigma]1_,order]=Normal[Delete[Series[BesselI[n1,\[Sigma]1],{\[Sigma]1,\[Infinity],order}],{2,2}]];
@@ -481,10 +483,10 @@ AsymptoticBesselI[n,\[Sigma],order]
 End[];
 
 
-SFTasymptotic::usage="SFTasymptotic[]";
+SFTasymptotic::usage="SFTasymptotic[\!\(\*SubscriptBox[\(p\), \(o\)]\),\!\(\*SubscriptBox[\(p\), \(y\)]\),\[Theta],b,c,\[Kappa],a,\!\(\*SubscriptBox[\(n\), \(x\)]\),\!\(\*SubscriptBox[\(n\), \(y\)]\),\!\(\*SubscriptBox[\(n\), \(z\)]\),order] calculates the SFT form factor in the asymptotic regime with molecular parameters (\[Theta],b,c,\[Kappa],\!\(\*SubscriptBox[\(n\), \(x\)]\),\!\(\*SubscriptBox[\(n\), \(y\)]\),\!\(\*SubscriptBox[\(n\), \(z\)]\)) and boundary radius a, at the transverse momentum \!\(\*SubscriptBox[\(p\), \(\[UpTee]\)]\)=(\!\(\*SubscriptBox[\(p\), \(o\)]\),\!\(\*SubscriptBox[\(p\), \(y\)]\)), to the specified asymptotic order in a.";
 Begin["`Private`"];
 ClearAll[SFTasymptotic];
-SFTasymptotic[poo_,pyy_,\[Theta]\[Theta]_,bb_,cc_,\[Kappa]\[Kappa]_,aa_,nx_,ny_,nz_,order_]:=Block[{po,py,\[Theta],b,c,\[Kappa],a},
+SFTasymptotic[poo_,pyy_,\[Theta]\[Theta]_,bb_,cc_,\[Kappa]\[Kappa]_,aa_,nx_,ny_,nz_,order_?NumericQ]:=Block[{po,py,\[Theta],b,c,\[Kappa],a},
 SFTasymptotic[po_,py_,\[Theta]_,b_,c_,\[Kappa]_,a_,nx,ny,nz,order]=Block[
 {n=nx+ny+nz,qx,qy,qz,\[Sigma],s,\[Kappa]a},
 \[Sigma]=\[Kappa]a Sqrt[1+b^2/\[Kappa]a^2-2s b/\[Kappa]a Sqrt[1+po^2/\[Kappa]^2+py^2/\[Kappa]^2] Cos[\[Theta]]+2s I b/\[Kappa]a po/\[Kappa] Sin[\[Theta]]];
