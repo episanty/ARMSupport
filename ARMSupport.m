@@ -22,12 +22,12 @@
 $ARMSupportVersion::usage="$ARMSupportVersion prints the current version of the ARMSupport package in use and its timestamp.";
 $ARMSupportTimestamp::usage="$ARMSupportTimestamp prints the timestamp of the current version of the ARMSupport package.";
 Begin["`Private`"];
-$ARMSupportVersion:="ARMSupport v1.0.14, "<>$ARMSupportTimestamp;
+$ARMSupportVersion:="ARMSupport v1.0.15, "<>$ARMSupportTimestamp;
 End[];
 
 
 Begin["`Private`"];
-$ARMSupportTimestamp="Thu 2 Jun 2016 20:08:57";
+$ARMSupportTimestamp="Tue 7 Jun 2016 22:52:07";
 End[];
 
 
@@ -498,6 +498,32 @@ Normal[Series[
 ,{s,{1,-1}}]]
 ];
 SFTasymptotic[poo,pyy,\[Theta]\[Theta],bb,cc,\[Kappa]\[Kappa],aa,nx,ny,nz,order]
+]
+End[];
+
+
+SFTrestricted::usage="SFTrestricted[\[Theta],\[Kappa],a,b,c,nx,ny,nz] calculates the form factor SFT(q) at zero transverse momentum, from the exact form.";
+Begin["`Private`"];
+SFTrestricted[\[Theta]_,\[Kappa]_,a_,b_,c_,nx_,ny_,nz_]:=SFTanalytic[qvec[a,\[Theta],0,0,\[Kappa]],b,c,nx,ny,nz]
+End[];
+
+
+SFTderivative::usage="SFTderivative[\[Theta],\[Kappa],a,b,c,nx,ny,nz] calculates the derivative \!\(\*FractionBox[\(\[PartialD]\), \(\[PartialD]\*SubscriptBox[\(p\), \(o\)]\)]\)SFT(q) at zero transverse momentum, from the exact form.";
+Begin["`Private`"];
+ClearAll[SFTderivative]
+SFTderivative[\[Theta]_,\[Kappa]_,a_,b_,c_,nx_,ny_,nz_]:=Block[{\[Theta]\[Theta],\[Kappa]\[Kappa],aa,bb,cc,nxx,nyy=0,nzz,po},
+SFTderivative[\[Theta]\[Theta]_,\[Kappa]\[Kappa]_,aa_,bb_,cc_,nxx_,nyy_,nzz_]=(D[SFTanalytic[qvec[aa,\[Theta]\[Theta],po,0,\[Kappa]\[Kappa]],bb,cc,nxx,nyy,nzz],po]/.{po->0});
+SFTderivative[\[Theta],\[Kappa],a,b,c,nx,ny,nz]
+]
+End[];
+
+
+SFTpy::usage="SFTpy[\[Theta],\[Kappa],a,b,c,nx,ny,nz] calculates the derivative \!\(\*FractionBox[\(\[PartialD]\), \(\[PartialD]\*SubscriptBox[\(p\), \(y\)]\)]\)SFT(q) at zero transverse momentum, from the exact form.";
+Begin["`Private`"];
+ClearAll[SFTpy]
+SFTpy[\[Theta]_,\[Kappa]_,a_,b_,c_,nx_,ny_,nz_]:=Block[{\[Theta]\[Theta],\[Kappa]\[Kappa],aa,bb,cc,nxx,nyy,nzz,py},
+SFTpy[\[Theta]\[Theta]_,\[Kappa]\[Kappa]_,aa_,bb_,cc_,nxx_,nyy_,nzz_]=(D[SFTanalytic[qvec[aa,\[Theta]\[Theta],0,py,\[Kappa]\[Kappa]],bb,cc,nxx,nyy,nzz],py]/.{py->0});
+SFTpy[\[Theta],\[Kappa],a,b,c,nx,ny,nz]
 ]
 End[];
 

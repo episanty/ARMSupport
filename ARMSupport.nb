@@ -218,7 +218,24 @@ Updated implementation of SFTnumeric to fix parallelized memoization.\
    3.643363379962493*^9}, {3.662459647945642*^9, 3.6624596920249987`*^9}, {
    3.673625679137501*^9, 3.6736257045930347`*^9}, {3.673625744506592*^9, 
    3.673625746472672*^9}, {3.673628390894527*^9, 3.673628401949029*^9}, {
-   3.673872483705249*^9, 3.673872513240851*^9}}]
+   3.673872483705249*^9, 3.673872513240851*^9}, {3.674318314795011*^9, 
+   3.674318314798253*^9}}],
+
+Cell["Added SFTrestricted and its derivatives.", "SubsubitemNumbered",
+ CellChangeTimes->{
+  3.638017283102044*^9, {3.638018586019689*^9, 3.6380186155077133`*^9}, {
+   3.6380192511257353`*^9, 3.638019263573556*^9}, {3.639758465685233*^9, 
+   3.6397584901808777`*^9}, {3.640070135694874*^9, 3.640070173263774*^9}, {
+   3.641819748501902*^9, 3.641819768821342*^9}, {3.641819829308764*^9, 
+   3.6418198384447327`*^9}, {3.641832914522904*^9, 3.641832948522265*^9}, {
+   3.6418334702851048`*^9, 3.641833474308853*^9}, {3.641842383174884*^9, 
+   3.641842391495041*^9}, {3.642306969599197*^9, 3.6423070204681063`*^9}, {
+   3.643362498684827*^9, 3.643362539378126*^9}, {3.643363351690998*^9, 
+   3.643363379962493*^9}, {3.662459647945642*^9, 3.6624596920249987`*^9}, {
+   3.673625679137501*^9, 3.6736257045930347`*^9}, {3.673625744506592*^9, 
+   3.673625746472672*^9}, {3.673628390894527*^9, 3.673628401949029*^9}, {
+   3.673872483705249*^9, 3.673872513240851*^9}, {3.674318314795011*^9, 
+   3.67431832508315*^9}}]
 }, Open  ]]
 }, Open  ]],
 
@@ -292,17 +309,20 @@ the ARMSupport package.\>\""}], ";"}], "\[IndentingNewLine]",
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"$ARMSupportVersion", ":=", 
-   RowBox[{"\"\<ARMSupport v1.0.14, \>\"", "<>", "$ARMSupportTimestamp"}]}], 
+   RowBox[{"\"\<ARMSupport v1.0.15, \>\"", "<>", "$ARMSupportTimestamp"}]}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"End", "[", "]"}], ";"}]}], "Input",
  InitializationCell->True,
  CellChangeTimes->{{3.6736253076287527`*^9, 3.673625370859439*^9}, {
   3.6736283884700747`*^9, 3.673628388532955*^9}, {3.673879736168695*^9, 
-  3.673879736344638*^9}}],
+  3.673879736344638*^9}, {3.6743183128197536`*^9, 3.67431831285681*^9}}]
+}, Open  ]],
 
-Cell[BoxData["\[IndentingNewLine]"], "Input",
- CellChangeTimes->{3.673625409330714*^9}],
+Cell[CellGroupData[{
+
+Cell["Timestamp updater", "Subsubsection",
+ CellChangeTimes->{{3.674318276731035*^9, 3.6743182896185303`*^9}}],
 
 Cell["\<\
 The timestamp is updated every time the notebook is saved via an appropriate \
@@ -352,13 +372,8 @@ Cell[BoxData[
    "\[IndentingNewLine]", "]"}], ";"}]], "Input",
  CellChangeTimes->{3.673625446413191*^9}],
 
-Cell["To reset this behaviour to normal, evaluatethe cell below", "Text"]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell["Timestamp", "Subsubsection",
- CellChangeTimes->{{3.673625586658309*^9, 3.673625587689796*^9}}],
+Cell["To reset this behaviour to normal, evaluate the cell below", "Text",
+ CellChangeTimes->{3.674318295539065*^9}],
 
 Cell[BoxData[
  RowBox[{"SetOptions", "[", 
@@ -374,13 +389,19 @@ Cell[BoxData[
        RowBox[{"(", 
         RowBox[{"NotebookSave", "[", "]"}], ")"}]}], ",", 
       RowBox[{"PassEventsDown", "\[Rule]", "True"}]}], "}"}]}]}], 
-  "]"}]], "Input"],
+  "]"}]], "Input"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Timestamp", "Subsubsection",
+ CellChangeTimes->{{3.673625586658309*^9, 3.673625587689796*^9}}],
 
 Cell[BoxData[{
  RowBox[{
   RowBox[{"Begin", "[", "\"\<`Private`\>\"", "]"}], ";"}], "\n", 
  RowBox[{
-  RowBox[{"$ARMSupportTimestamp", "=", "\"\<Thu 2 Jun 2016 20:08:57\>\""}], 
+  RowBox[{"$ARMSupportTimestamp", "=", "\"\<Tue 7 Jun 2016 22:52:07\>\""}], 
   ";"}], "\n", 
  RowBox[{
   RowBox[{"End", "[", "]"}], ";"}]}], "Input",
@@ -642,7 +663,7 @@ Cell[BoxData[{
     RowBox[{"ts", "[", 
      RowBox[{
      "pp", ",", "\[Kappa]", ",", "\[Omega]", ",", "F", ",", "po", ",", "py"}],
-      "]"}], "]"}]}], "\n"}], "\[IndentingNewLine]", 
+      "]"}], "]"}]}], "\[IndentingNewLine]"}], "\n", 
  RowBox[{
   RowBox[{"\[Tau]", "[", 
    RowBox[{
@@ -785,13 +806,13 @@ and friends.\>\""}]}], "Input",
 Cell[BoxData["\<\"pz represents the z component of momentum.\"\>"], "Output",
  CellChangeTimes->{
   3.6624023563496532`*^9, 3.662459503753586*^9, {3.662459795864291*^9, 
-   3.662459806628171*^9}}],
+   3.662459806628171*^9}, {3.674319534195396*^9, 3.6743189319252567`*^9}}],
 
 Cell[BoxData["\<\"tr represents the return time as calculated by \
 getClassicalTransition and friends.\"\>"], "Output",
  CellChangeTimes->{
   3.6624023563496532`*^9, 3.662459503753586*^9, {3.662459795864291*^9, 
-   3.662459806629219*^9}}]
+   3.662459806628171*^9}, {3.674319534195396*^9, 3.674318931926103*^9}}]
 }, Open  ]],
 
 Cell[BoxData[{
@@ -48605,12 +48626,12 @@ EPToolbox.m\>\""}], "]"}], ";", "\[IndentingNewLine]",
 Cell[BoxData["\<\"ARMSupport`Private`\"\>"], "Output",
  CellChangeTimes->{
   3.662402358008668*^9, 3.662459504674659*^9, {3.6624597962687597`*^9, 
-   3.662459806969194*^9}}],
+   3.662459806969194*^9}, {3.674319536199751*^9, 3.674318933765934*^9}}],
 
 Cell[BoxData["\<\"ARMSupport`Private`\"\>"], "Output",
  CellChangeTimes->{
   3.662402358008668*^9, 3.662459504674659*^9, {3.6624597962687597`*^9, 
-   3.6624598069757433`*^9}}]
+   3.662459806969194*^9}, {3.674319536199751*^9, 3.674318933854114*^9}}]
 }, Open  ]]
 }, Closed]],
 
@@ -49240,12 +49261,12 @@ Cell[BoxData[{
 Cell[BoxData["\<\"ARMSupport`Private`\"\>"], "Output",
  CellChangeTimes->{
   3.662402358311874*^9, 3.662459504872751*^9, {3.662459796403447*^9, 
-   3.662459807086384*^9}}],
+   3.662459807086384*^9}, {3.6743195367408123`*^9, 3.6743189341616173`*^9}}],
 
 Cell[BoxData["\<\"ARMSupport`Private`\"\>"], "Output",
  CellChangeTimes->{
   3.662402358311874*^9, 3.662459504872751*^9, {3.662459796403447*^9, 
-   3.6624598071112423`*^9}}]
+   3.662459807086384*^9}, {3.6743195367408123`*^9, 3.6743189342535048`*^9}}]
 }, Open  ]]
 }, Closed]]
 }, Open  ]]
@@ -49439,12 +49460,12 @@ Cell[BoxData[{
 Cell[BoxData["\<\"ARMSupport`Private`\"\>"], "Output",
  CellChangeTimes->{
   3.662402358422247*^9, 3.662459505003812*^9, {3.6624597965269747`*^9, 
-   3.6624598072003727`*^9}}],
+   3.6624598072003727`*^9}, {3.674319537043027*^9, 3.674318934555951*^9}}],
 
 Cell[BoxData["\<\"ARMSupport`Private`\"\>"], "Output",
  CellChangeTimes->{
   3.662402358422247*^9, 3.662459505003812*^9, {3.6624597965269747`*^9, 
-   3.662459807205984*^9}}]
+   3.6624598072003727`*^9}, {3.674319537043027*^9, 3.674318934641406*^9}}]
 }, Open  ]]
 }, Closed]],
 
@@ -49779,40 +49800,12 @@ Cell[BoxData[{
 Cell[BoxData["\<\"ARMSupport`Private`\"\>"], "Output",
  CellChangeTimes->{
   3.662402358539125*^9, 3.662459505101962*^9, {3.662459796624769*^9, 
-   3.662459807291347*^9}}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"Image", "::", "imgarray"}], "MessageName"], ":", 
-  " ", "\<\"The specified argument \[NoBreak]\\!\\({\\(\\({\\(\\({255, 255, \
-255}\\)\\), \\(\\({255, 255, 255}\\)\\), \\(\\({255, 255, 255}\\)\\), \
-\\(\\({255, 255, 255}\\)\\), \\(\\({255, 255, 255}\\)\\), \\(\\({255, 255, \
-255}\\)\\), \\(\\({255, 255, 255}\\)\\), \\(\\({255, 255, 255}\\)\\), \
-\\(\\({255, 255, 255}\\)\\), \\(\\({255, 255, 255}\\)\\), \\(\\({255, 255, \
-255}\\)\\), \\(\\({255, 255, 254}\\)\\), \\(\\({252, 252, 252}\\)\\), \
-\\(\\({254, 254, 255}\\)\\), \\(\\({255, 255, 255}\\)\\), \\(\\({255, 255, \
-255}\\)\\), \\(\\(\[LeftSkeleton] 20 \[RightSkeleton]\\)\\), \\(\\({255, 255, \
-255}\\)\\), \\(\\({255, 255, 255}\\)\\), \\(\\({255, 255, 255}\\)\\), \
-\\(\\({255, 255, 255}\\)\\), \\(\\({255, 255, 255}\\)\\), \\(\\({255, 255, \
-255}\\)\\), \\(\\({255, 255, 255}\\)\\), \\(\\({255, 255, 255}\\)\\), \
-\\(\\({255, 255, 255}\\)\\), \\(\\({255, 255, 255}\\)\\), \\(\\({255, 255, \
-255}\\)\\), \\(\\({255, 255, 255}\\)\\), \\(\\({255, 255, 255}\\)\\), \
-\\(\\({255, 255, 255}\\)\\), \\(\\(\[LeftSkeleton] 100 \
-\[RightSkeleton]\\)\\)}\\)\\), \\(\\(\[LeftSkeleton] 49 \
-\[RightSkeleton]\\)\\), \\(\\(\[LeftSkeleton] 50 \[RightSkeleton]\\)\\)}\\)\
-\[NoBreak] should be an array of rank 2 or 3 with machine-sized numbers. \
-\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
-ButtonFrame->None, ButtonData:>\\\"paclet:ref/Image\\\", ButtonNote -> \
-\\\"Image::imgarray\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{
-  3.662402358729629*^9, 3.662459505265511*^9, {3.6624597967885523`*^9, 
-   3.662459807448104*^9}}],
+   3.662459807291347*^9}, {3.674319537262027*^9, 3.674318934839707*^9}}],
 
 Cell[BoxData["\<\"ARMSupport`Private`\"\>"], "Output",
  CellChangeTimes->{
   3.662402358539125*^9, 3.662459505101962*^9, {3.662459796624769*^9, 
-   3.66245980749333*^9}}]
+   3.662459807291347*^9}, {3.674319537262027*^9, 3.674318934899103*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -49867,12 +49860,12 @@ Cell[BoxData[{
 Cell[BoxData["\<\"ARMSupport`Private`\"\>"], "Output",
  CellChangeTimes->{
   3.662402358898588*^9, 3.662459505397998*^9, {3.662459796849141*^9, 
-   3.662459807578918*^9}}],
+   3.662459807578918*^9}, {3.674319537509363*^9, 3.6743189350247707`*^9}}],
 
 Cell[BoxData["\<\"ARMSupport`Private`\"\>"], "Output",
  CellChangeTimes->{
   3.662402358898588*^9, 3.662459505397998*^9, {3.662459796849141*^9, 
-   3.662459807582781*^9}}]
+   3.662459807578918*^9}, {3.674319537509363*^9, 3.674318935025785*^9}}]
 }, Open  ]]
 }, Closed]],
 
@@ -51431,7 +51424,7 @@ of spherical Bessel functions.\n\nSFTnumeric[{\!\(\*SubscriptBox[\(q\), \
    3.6672236957083273`*^9, {3.673628066209317*^9, 3.673628087080048*^9}, {
    3.6738702973286448`*^9, 3.673870323784903*^9}, {3.673870359768775*^9, 
    3.673870366192429*^9}}]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -51889,8 +51882,155 @@ order in a.\>\""}], ";"}], "\[IndentingNewLine]",
 }, Closed]]
 }, Open  ]],
 
-Cell["SFTrestricted", "Subsection",
- CellChangeTimes->{{3.667637205107441*^9, 3.6676372086589003`*^9}}]
+Cell[CellGroupData[{
+
+Cell["SFTrestricted and derivatives, SFTderivative and SFTpy", "Subsection",
+ CellChangeTimes->{{3.667637205107441*^9, 3.6676372086589003`*^9}, {
+  3.674318021956912*^9, 3.674318030963273*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"SFTrestricted", "::", "usage"}], "=", 
+   "\"\<SFTrestricted[\[Theta],\[Kappa],a,b,c,nx,ny,nz] calculates the form \
+factor SFT(q) at zero transverse momentum, from the exact form.\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Begin", "[", "\"\<`Private`\>\"", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SFTrestricted", "[", 
+   RowBox[{
+   "\[Theta]_", ",", "\[Kappa]_", ",", "a_", ",", "b_", ",", "c_", ",", "nx_",
+     ",", "ny_", ",", "nz_"}], "]"}], ":=", 
+  RowBox[{"SFTanalytic", "[", 
+   RowBox[{
+    RowBox[{"qvec", "[", 
+     RowBox[{"a", ",", "\[Theta]", ",", "0", ",", "0", ",", "\[Kappa]"}], 
+     "]"}], ",", "b", ",", "c", ",", "nx", ",", "ny", ",", "nz"}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"End", "[", "]"}], ";"}]}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.6743196493560057`*^9, 3.674319673220601*^9}, {
+  3.6743197039411297`*^9, 3.674318101325*^9}, {3.674318208436009*^9, 
+  3.674318217900126*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"SFTderivative", "::", "usage"}], "=", 
+   "\"\<SFTderivative[\[Theta],\[Kappa],a,b,c,nx,ny,nz] calculates the \
+derivative \!\(\*FractionBox[\(\[PartialD]\), \(\[PartialD]\*SubscriptBox[\(p\
+\), \(o\)]\)]\)SFT(q) at zero transverse momentum, from the exact \
+form.\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Begin", "[", "\"\<`Private`\>\"", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ClearAll", "[", "SFTderivative", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SFTderivative", "[", 
+   RowBox[{
+   "\[Theta]_", ",", "\[Kappa]_", ",", "a_", ",", "b_", ",", "c_", ",", "nx_",
+     ",", "ny_", ",", "nz_"}], "]"}], ":=", 
+  RowBox[{"Block", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "\[Theta]\[Theta]", ",", "\[Kappa]\[Kappa]", ",", "aa", ",", "bb", ",", 
+      "cc", ",", "nxx", ",", 
+      RowBox[{"nyy", "=", "0"}], ",", "nzz", ",", "po"}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"SFTderivative", "[", 
+       RowBox[{
+       "\[Theta]\[Theta]_", ",", "\[Kappa]\[Kappa]_", ",", "aa_", ",", "bb_", 
+        ",", "cc_", ",", "nxx_", ",", "nyy_", ",", "nzz_"}], "]"}], "=", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"SFTanalytic", "[", 
+           RowBox[{
+            RowBox[{"qvec", "[", 
+             RowBox[{
+             "aa", ",", "\[Theta]\[Theta]", ",", "po", ",", "0", ",", 
+              "\[Kappa]\[Kappa]"}], "]"}], ",", "bb", ",", "cc", ",", "nxx", 
+            ",", "nyy", ",", "nzz"}], "]"}], ",", "po"}], "]"}], "/.", 
+        RowBox[{"{", 
+         RowBox[{"po", "\[Rule]", "0"}], "}"}]}], ")"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"SFTderivative", "[", 
+      RowBox[{
+      "\[Theta]", ",", "\[Kappa]", ",", "a", ",", "b", ",", "c", ",", "nx", 
+       ",", "ny", ",", "nz"}], "]"}]}]}], "\[IndentingNewLine]", 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"End", "[", "]"}], ";"}]}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.674317774558461*^9, 3.674317819342688*^9}, {
+   3.674317881789281*^9, 3.674318001165697*^9}, {3.6743180393260098`*^9, 
+   3.6743180644286623`*^9}, {3.674318105309045*^9, 3.674318135732881*^9}, 
+   3.6743182227816133`*^9, {3.674318916478958*^9, 3.674318916719462*^9}, {
+   3.674318977382575*^9, 3.674318978542994*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"SFTpy", "::", "usage"}], "=", 
+   "\"\<SFTpy[\[Theta],\[Kappa],a,b,c,nx,ny,nz] calculates the derivative \
+\!\(\*FractionBox[\(\[PartialD]\), \(\[PartialD]\*SubscriptBox[\(p\), \
+\(y\)]\)]\)SFT(q) at zero transverse momentum, from the exact form.\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Begin", "[", "\"\<`Private`\>\"", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ClearAll", "[", "SFTpy", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SFTpy", "[", 
+   RowBox[{
+   "\[Theta]_", ",", "\[Kappa]_", ",", "a_", ",", "b_", ",", "c_", ",", "nx_",
+     ",", "ny_", ",", "nz_"}], "]"}], ":=", 
+  RowBox[{"Block", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "\[Theta]\[Theta]", ",", "\[Kappa]\[Kappa]", ",", "aa", ",", "bb", ",", 
+      "cc", ",", "nxx", ",", "nyy", ",", "nzz", ",", "py"}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"SFTpy", "[", 
+       RowBox[{
+       "\[Theta]\[Theta]_", ",", "\[Kappa]\[Kappa]_", ",", "aa_", ",", "bb_", 
+        ",", "cc_", ",", "nxx_", ",", "nyy_", ",", "nzz_"}], "]"}], "=", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"SFTanalytic", "[", 
+           RowBox[{
+            RowBox[{"qvec", "[", 
+             RowBox[{
+             "aa", ",", "\[Theta]\[Theta]", ",", "0", ",", "py", ",", 
+              "\[Kappa]\[Kappa]"}], "]"}], ",", "bb", ",", "cc", ",", "nxx", 
+            ",", "nyy", ",", "nzz"}], "]"}], ",", "py"}], "]"}], "/.", 
+        RowBox[{"{", 
+         RowBox[{"py", "\[Rule]", "0"}], "}"}]}], ")"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"SFTpy", "[", 
+      RowBox[{
+      "\[Theta]", ",", "\[Kappa]", ",", "a", ",", "b", ",", "c", ",", "nx", 
+       ",", "ny", ",", "nz"}], "]"}]}]}], "\[IndentingNewLine]", 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"End", "[", "]"}], ";"}]}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.674318168196887*^9, 3.674318188308567*^9}, 
+   3.6743182215086613`*^9, 3.67431907215917*^9, {3.6743192353180847`*^9, 
+   3.674319262772204*^9}}]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -51948,7 +52088,6 @@ GhostCellInEmptyNotebook->False,
 CellInsertionPointColor->GrayLevel[0.7500114442664225],
 CellInsertionPointCell->FEPrivate`FrontEndResource[
  "FEExpressions", "CellInsertionMenu"],
-Evaluator->"Local",
 EvaluationCompletionAction->"ShowTiming",
 PrintAction->"PrintToNotebook",
 OutputAutoOverwrite->True,
