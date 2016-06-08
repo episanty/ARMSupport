@@ -27,7 +27,7 @@ End[];
 
 
 Begin["`Private`"];
-$ARMSupportTimestamp="Tue 7 Jun 2016 22:52:07";
+$ARMSupportTimestamp="Wed 8 Jun 2016 12:46:18";
 End[];
 
 
@@ -391,7 +391,7 @@ ReportingFunction::usage="ReportingFunction is an option for coulombCorrection t
 ReportToFile::usage="ReportToFile[directory, file] returns a function which can be used as a value for ReportingFunction inside coulombCorrection.\n\nReportToFile[directory, file][expr] adds a line with expr (properly parsed to ASCII for spaces, backslashes and quote marks) to directory/file.";
 
 
-Begin["`Private`"]
+Begin["`Private`"];
 If[$KernelID==0,SetSharedFunction[Sow]];
 Quiet[ReportingFunction=ReportingFunction;Softening=Softening;]
 Protect[ReportingFunction];Protect[Softening];
@@ -417,12 +417,12 @@ int=NIntegrate[-((po^2+py^2)(t-tss)^2+(pp(t-tss)+F/\[Omega]^2 (Cos[\[Omega] t]-C
 OptionValue[ReportingFunction][Chop[{{po,py,pp},{F,\[Omega],\[Kappa]},path}]];Message[coulombCorrection::intErrors,Chop[{{po,py,pp},{F,\[Omega],\[Kappa]},path}]];int
 ]
 ]
-End[]
+End[];
 
 
-Begin["`Private`"]
+Begin["`Private`"];
 ReportToFile[directory_,file_]:=Function[expr,Run["cd "<>directory<>" && echo "<>StringReplace[ToString[expr/.{s_String:>StringJoin["\"",s,"\""]},CharacterEncoding->"ASCII"],{" "->"\\ ","\\"->"\\\\","\""->"\\\""}]<>" >> "<>StringReplace[file,{" "->"\\ ","\\"->"\\\\","\""->"\\\""}]]]
-End[]
+End[];
 
 
 Unprotect[Power];
